@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+  <ng-container *ngIf="cartService.cartList$ | async as cart">
+    <h2 *ngIf="cart.length > 0; else emptyCart" class="section-title">Shopping Cart</h2>
+</ng-container>
+
+<ng-template #emptyCart>
+    <h2 class="section-title">Your cart is empty</h2>
+</ng-template>
+<div class="product-container">
+
+
+   
+
+    @for (productdata of cartService.cartList$ | async; track productdata.title) {
+    <div class="product-card">
+        <div class="product-info">
+            <div class="profile-img">
+                <img [src]="productdata.image" alt="Product Image" width="200" /><br />
+
+            </div>
+
+            <div class="product-details">
+
+
+                <label> <strong>Title: {{ productdata.title }}</strong></label><br />
+
+                <label><strong>Category: {{ productdata.category }}</strong></label><br />
+
+                <label><strong>Rating: </strong>${{ productdata.rating.rate}} </label><br />
+                <label><strong>Count: </strong>{{ productdata.rating.count}} </label><br />
+                <label><strong>Description: </strong>{{ productdata.description}} </label><br /><br />
+
+
+
+                <button mat-button class="backBtn" (click)="goback()"> Back </button>
+
+                <button class="removeBtn" (click)="removeFromCart(productdata)">Remove from Cart</button>
+
+            </div>
+        </div>
+
+    </div>
+    }
+</div>

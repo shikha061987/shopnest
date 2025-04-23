@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+    <div class="profile-img">
+        <img [src]="productDetails?.image" alt="Product Image" width="200" /><br />
+
+    </div>
+    <div class="profileInfo-box">
+
+        <ul class="displayDetails">
+
+            <li><Strong>Name: {{productDetails?.title}}</Strong></li>
+
+            <li><Strong>Price:$ </Strong>{{productDetails?.price}}</li>
+            <li><Strong>Category:</Strong> {{productDetails?.category}}</li>
+            <li><Strong>Rating: </Strong>{{productDetails?.rating?.rate}}</li>
+            <li><Strong>Count:</Strong> {{productDetails?.rating?.count}}</li>
+            <li><Strong>Description:</Strong> {{productDetails?.description}}</li>
+
+        </ul>
+
+       <button mat-button class="no-border-GoBackbtn" (click)="goback()"> Back </button>
+
+
+        <button 
+        *ngIf="productDetails" 
+        mat-button 
+        class="no-border-ADDbtn"
+        [disabled]="isDisabled(productDetails.id)" 
+        [ngClass]="{
+          'btn-enabled': !isDisabled(productDetails.id),
+          'btn-disabled': isDisabled(productDetails.id)
+        }"
+        (click)="addToCart(productDetails)">
+        {{ isDisabled(productDetails.id) ? 'Added to Cart' : 'Add to Cart' }}
+      </button>
+
+    </div>
+ <!-- Transparent background overlay -->
+ <!-- Transparent background overlay-->
+ <div *ngIf="messageVisible" class="overlay">
+  <div class="message-box">
+    <p>Product added on cart</p>
+  </div>
+</div> 
+</div>

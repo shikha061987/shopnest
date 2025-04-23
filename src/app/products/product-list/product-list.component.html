@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<!-- Zoomed Image Overlay -->
+<div class="zoom-overlay" *ngIf="zoomedImage" (click)="toggleZoom()">
+  <img [src]="zoomedImage" class="zoomed-img">
+</div>
+
+<div
+  class="scroll-container"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="150"
+  (scrolled)="loadItems()"
+>
+
+<input type="text" [(ngModel)]="searchTerm" (input)="filterByCategory()" placeholder="Search by category..."
+  class="searchBarText form-control mb-3" />
+
+  <!--
+<div class="scrollable-container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()">
+
+  <div class="scrollable-container" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+-->
+  <div class="product-container">
+    @for (productdata of filterProducts; track productdata.title) {
+    <div class="product-card">
+      <div class="product-info">
+      <div>
+        <div class="product-image-container">
+          <img class="product-image" [src]="productdata.image" alt="Product Image" (click)="toggleZoom(productdata.image)" /><br />
+        </div>
+        <label><strong>{{ productdata.category }}</strong></label><br />
+        <label>${{ productdata.price }}</label><br />
+
+        <button mat-button class="no-border-Viewbtn" (click)="onViewDetails(productdata.id)">
+          View Details
+        </button><br /><br />
+      </div>
+        <div class="butonsDisplay">
+          <button mat-button class="no-border-ADDbtn" [disabled]="isDisabled(productdata.id)" [ngClass]="{
+    'btn-enabled': !isDisabled(productdata.id),
+    'btn-disabled': isDisabled(productdata.id)
+  }" (click)="addToCart(productdata)">
+            {{ isDisabled(productdata.id) ? 'Added to Cart' : 'Add to Cart' }}
+          </button>
+          <button mat-button class="ViewCartbtn" (click)="onViewCart()">
+            View Cart
+          </button>
+        </div>
+  
+      </div>
+
+      <div *ngIf="messageVisible" class="overlay">
+        <div class="message-box">
+          <p>Product added on cart</p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  <div *ngIf="isLoading" class="loading">Loading...</div>
+  <div *ngIf="allLoaded" class="end-message">All items loaded.</div>
+</div>

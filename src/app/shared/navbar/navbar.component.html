@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="d-flex justify-content-between">
+ <span> 
+    <img src="https://imgur.com/GBECiWk.jpg" alt="Imgur Image" width="50"/>
+    <label class="headerName">ShopNest</label>
+  </span>
+  <nav>
+
+
+
+      <div class="cart-actions">
+      <!-- <a routerLink="/products" routerLinkActive="active">Products</a> --> 
+
+      <a mat-button routerLink="/products">Products</a>
+
+
+    <a mat-button routerLink="/cart" class="custom-cart-button">
+      Cart
+    </a>
+    <button mat-icon-button [matBadge]="cartService.cartList.length" matBadgeColor="warn" matBadgeOverlap="false" class="custom-cart-icon"
+      (click)="goToCart()">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+
+
+</div>
+
+  </nav>
+</mat-toolbar>
